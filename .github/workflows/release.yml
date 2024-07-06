@@ -1,0 +1,36 @@
+name: Action Publish
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+      - name: Build
+        run: |
+          ls
+          docker build . -t el-toolchain:new
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    needs:
+      - docker-build
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+      - name: Publish
+        run: |
+          git config --global user.email "bot@el-oolchain.action"
+          git config --global user.name "Release Bot"
+          git tag -fa v1 -m "release v1"
+          git push origin v1 --force

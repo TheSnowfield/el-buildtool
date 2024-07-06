@@ -1,0 +1,31 @@
+#!/bin/bash
+
+_e_dir=$1
+_src=$2
+_dst=$3
+_obj=${_src%.*}.obj
+
+# check the args
+if [ "$_src" == "" ]; then
+  echo "Usage: compile <path to e.exe> <source (*.e)> [output (*.obj)]"
+  exit -1
+fi
+
+# execute e.exe to compile the code
+LANG=zh_CN.UTF-8 DISPLAY=:99 wine \
+  $_e_dir/ecl.exe make "$_src" -epath $_e_dir/e.exe -s
+
+# check result file exists
+if [ ! -e "$_obj" ]; then
+    echo "Compilation failed"
+    exit -1
+fi
+
+# if the output path is empty, move the file to destination
+if [ "$_dst" != "" ]; then
+  mv "$_obj" "$_dst"
+  _dst=$_obj
+fi
+
+echo "Out: $_obj"
+exit 0

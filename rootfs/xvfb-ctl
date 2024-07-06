@@ -1,0 +1,21 @@
+#!/bin/bash
+
+_command=$1
+
+#check if Xvfb installed
+if [ "$(command -v Xvfb)" == "" ]; then
+  echo "You've not installed Xvfb, abort"
+  exit -1
+fi
+
+if [ "$_command" == "start" ]; then
+  echo "Starting Xvfb at display :99"
+  (Xvfb :99 &) 2>&1
+
+elif [ "$_command" == "stop" ]; then
+  echo "Stop Xvfb"
+  pkill Xvfb
+
+else
+  echo "Usage: xvfb-ctl <start|stop>"
+fi
