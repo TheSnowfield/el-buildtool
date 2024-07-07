@@ -19,11 +19,25 @@ jobs:
           ls
           docker build . -t el-toolchain:new
 
+  test-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+      - uses: ./
+        with:
+          file: rootfs/test/main.e
+          opt_fast_array: true
+          opt_stack_check: false
+          opt_deadloop_check: false
+
   release:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
     needs:
       - docker-build
+      - test-compile
     steps:
       - uses: actions/checkout@v4
         with:

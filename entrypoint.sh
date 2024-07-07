@@ -1,9 +1,17 @@
-#!/bin/bash
+#!/bin/sh -l
 
-export LANG=zh_CN.UTF-8
-export DISPLAY=:99
-export E_PATH=$TOOLCHAIN/el/e.exe
-export ECL_PATH=$TOOLCHAIN/el/ecl.exe
+echo "INPUT_FILE: $INPUT_FILE"
+echo "INPUT_PASSWORD: $INPUT_PASSWORD"
+echo "INPUT_QUIET: $INPUT_QUIET"
+echo "INPUT_OPT_FAST_ARRAY: $INPUT_OPT_FAST_ARRAY"
+echo "INPUT_OPT_CHECK_STACK: $INPUT_OPT_STACK_CHECK"
+echo "INPUT_OPT_CHECK_DEADLOOP: $INPUT_OPT_DEADLOOP_CHECK"
+echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
 
+export TOOLCHAIN="/toolchain"
+# _cmd_line=""
 
-
+# start xvfb service then compile the code
+$TOOLCHAIN/xvfb-ctl start && \
+  $TOOLCHAIN/compile $TOOLCHAIN/el $GITHUB_WORKSPACE/$INPUT_FILE && \
+  $TOOLCHAIN/xvfb-ctl stop

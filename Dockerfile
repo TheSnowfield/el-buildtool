@@ -2,7 +2,11 @@ FROM ubuntu:24.04
 
 COPY rootfs /toolchain/
 COPY entrypoint.sh /entrypoint.sh
-ENV TOOLCHAIN /toolchain
+
+ENV LC=zh_CN.UTF-8 \
+    LANG=zh_CN.UTF-8 \
+    WINEARCH=win32 \
+    WINEPREFIX=/tmp/.wine
 
 RUN cd /toolchain && ls && \
 
@@ -23,15 +27,7 @@ RUN cd /toolchain && ls && \
     locale-gen zh_CN.UTF-8 && \
 
     # wine init
-    export LC=zh_CN.UTF-8 && \
-    export LANG=zh_CN.UTF-8 && \
-    export WINEARCH=win32 && \
     wineboot && \
     winetricks winxp
-
-# test compile
-RUN /toolchain/xvfb-ctl start && \
-    /toolchain/compile /toolchain/el /toolchain/test/main.e && \
-    /toolchain/xvfb-ctl stop
 
 ENTRYPOINT ["/entrypoint.sh"]
