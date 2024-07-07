@@ -1,4 +1,4 @@
-name: 'el-toolchain-action'
+name: 'el-buildtool'
 author: 'TheSnowfield'
 branding:
   icon: 'anchor'
