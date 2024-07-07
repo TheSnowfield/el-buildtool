@@ -30,10 +30,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  # args:
-  #   - --input ${{ inputs.file }}
-  #   - --password ${{ inputs.password }}
-  #   - --quiet ${{ inputs.quiet }}
-  #   - --opt-fast-array ${{ inputs.opt_fast_array }}
-  #   - --opt-stack-check ${{ inputs.opt_stack_check }}
-  #   - --opt-deadloop-check ${{ inputs.opt_deadloop_check }}
