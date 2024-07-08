@@ -3,17 +3,23 @@
 _e_dir=$1
 _src=$2
 _dst=$3
+shift 3
+_cmd_line=$@
+
 _obj=${_src%.*}.obj
+_res=${_src%.*}.res
 
 # check the args
 if [ "$_src" == "" ]; then
-  echo "Usage: compile <path to e.exe> <source (*.e)> [output (*.obj)]"
+  echo "Usage: compile <path to e.exe> <source (*.e)> [output (*.obj)|-] [custom cmds]"
   exit -1
 fi
 
+echo "$_e_dir/ecl.exe make $_src -epath $_e_dir/e.exe -s $_cmd_line"
+
 # execute e.exe to compile the code
 LANG=zh_CN.UTF-8 DISPLAY=:99 wine \
-  $_e_dir/ecl.exe make "$_src" -epath $_e_dir/e.exe -s
+  $_e_dir/ecl.exe make $_src -epath $_e_dir/e.exe -s $_cmd_line
 
 # check result file exists
 if [ ! -e "$_obj" ]; then
@@ -21,8 +27,11 @@ if [ ! -e "$_obj" ]; then
     exit -1
 fi
 
-# if the output path is empty, move the file to destination
-if [ "$_dst" != "" ]; then
+# delete redundant *.res file
+rm $_res
+
+# if the output path is empty or -, move the file to destination
+if [ "$_dst" != "" ] && [ "$_dst" != "-" ]; then
   mv "$_obj" "$_dst"
   _dst=$_obj
 fi
