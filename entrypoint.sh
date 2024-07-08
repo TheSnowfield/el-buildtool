@@ -13,33 +13,33 @@ _cmd_line=""
 
 # set password
 if [ "$INPUT_QUIET" != "" ]; then
-  _cmd_line=$_cmd_line -q
+  _cmd_line="$_cmd_line -q"
 fi
 
 # keep quiet
 if [ "$INPUT_PASSWORD" != "" ]; then
-  _cmd_line=$_cmd_line -pwd $INPUT_PASSWORD
+  _cmd_line="$_cmd_line -pwd \"${INPUT_PASSWORD}\""
 fi
 
 # compiler option: fast array access mode
 if [ "$INPUT_OPT_FAST_ARRAY" = "true" ]; then
-  _cmd_line="${_cmd_line} -FastArry"
+  _cmd_line="$_cmd_line -FastArry"
 else
-  _cmd_line="${_cmd_line} -FastArry-"
+  _cmd_line="$_cmd_line -FastArry-"
 fi
 
 # compiler option: check stack after calling DLL
 if [ "$INPUT_OPT_CHECK_STACK" = "true" ]; then
-  _cmd_line="${_cmd_line} -CheckDllStack"
+  _cmd_line="$_cmd_line -CheckDllStack"
 else
-  _cmd_line="${_cmd_line} -CheckDllStack-"
+  _cmd_line="$_cmd_line -CheckDllStack-"
 fi
 
 # compiler option: check deadloop
 if [ "$INPUT_OPT_CHECK_DEADLOOP" = "true" ]; then
-  _cmd_line="${_cmd_line} -CheckLoop}"
+  _cmd_line="$_cmd_line -CheckLoop"
 else
-  _cmd_line="${_cmd_line} -CheckLoop-"
+  _cmd_line="$_cmd_line -CheckLoop-"
 fi
 
 # start xvfb service then compile the code
