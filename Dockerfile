@@ -21,13 +21,16 @@ RUN cd /toolchain && ls && \
     wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key && \
     wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources && \
     apt-get update && \
-    apt-get install -y --install-recommends wine-devel winetricks && \
+    apt-get install -y wine-devel winetricks && \
 
     # configure locale to zhcn
     locale-gen zh_CN.UTF-8 && \
 
     # wine init
     wineboot && \
-    winetricks winxp
+    winetricks winxp && \
+
+    # clean
+    apt-get clean
 
 ENTRYPOINT ["/entrypoint.sh"]

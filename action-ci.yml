@@ -1,0 +1,32 @@
+name: 'el-buildtool'
+author: 'TheSnowfield'
+branding:
+  icon: 'anchor'
+  color: 'blue'
+description: 'This action provides the command-line compile toolchain for EPL'
+inputs:
+  file:
+    description: 'The name path of the EPL source file (*.e)'
+    required: true
+  password:
+    description: 'Provides the password of the source file'
+    required: false
+  quiet:
+    description: 'Keep compiler quite, only print the error messages'
+    required: false
+    default: false
+  opt_fast_array:
+    description: 'Enables the fast array accessing mode'
+    required: false
+    default: true
+  opt_stack_check:
+    description: 'Enables the stack check after calling the DLL function'
+    required: false
+    default: false
+  opt_deadloop_check:
+    description: 'Enables the deadloop check'
+    required: false
+    default: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
