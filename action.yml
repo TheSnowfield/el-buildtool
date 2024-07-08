@@ -1,8 +1,8 @@
 name: 'el-buildtool'
 author: 'TheSnowfield'
 branding:
-  icon: 'anchor'
-  color: 'blue'
+  color: gray-dark
+  icon: terminal
 description: 'This action provides the command-line compile toolchain for EPL'
 inputs:
   file:
