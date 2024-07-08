@@ -12,7 +12,7 @@ export TOOLCHAIN="/toolchain"
 _cmd_line=""
 
 # set password
-if [ "$INPUT_QUIET" != "" ]; then
+if [ "$INPUT_QUIET" = "true" ]; then
   _cmd_line="$_cmd_line -q"
 fi
 
