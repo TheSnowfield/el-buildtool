@@ -29,4 +29,4 @@ inputs:
     default: false
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/TheSnowfield/el-buildtool:latest'
+  image: 'docker://ghcr.io/thesnowfield/el-buildtool:latest'
