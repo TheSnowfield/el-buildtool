@@ -8,17 +8,6 @@ on:
 
 jobs:
 
-  docker-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GIT_TOKEN }}
-      - name: Build
-        run: |
-          ls
-          docker build . -t el-toolchain:new
-
   test-compile:
     runs-on: ubuntu-latest
     steps:
@@ -32,12 +21,28 @@ jobs:
           opt_stack_check: false
           opt_deadloop_check: false
 
+  docker-publish:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    needs:
+      - test-compile
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+      - name: Build
+        run: |
+          docker build . -t el-builtool:latest
+      - name: Publish
+        run: |
+          echo ${{ secrets.GIT_TOKEN }} | docker login ghcr.io -u TheSnowfield --password-stdin
+          docker push ghcr.io/TheSnowfield/el-builtool:latest
+
   release:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
     needs:
-      - docker-build
-      - test-compile
+      - docker-publish
     steps:
       - uses: actions/checkout@v4
         with:

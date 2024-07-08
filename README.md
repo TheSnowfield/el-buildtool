@@ -11,6 +11,9 @@ Thus, we have to use the binary located in [rootfs/el](rootfs/el).
 
 The ecl.exe comes from the EPL community, it can drive the e.exe parameterized compiles without creating the GUI.
 
+![LICENSE](https://img.shields.io/static/v1?label=LICENSE&message=WTFPL&color=lightgrey)
+![CI/CD](https://img.shields.io/static/v1?label=Action&message=v1&color=green)
+
 ## Use this Action
 
 More arguments can be found in the [action.yml](action.yml) file.
