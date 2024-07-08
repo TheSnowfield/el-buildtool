@@ -40,8 +40,8 @@ jobs:
         run: |
           echo ${{ secrets.GIT_TOKEN }} | docker login ghcr.io -u TheSnowfield --password-stdin
           docker image ls
-          docker tag el-buildtool ghcr.io/thesnowfield/el-buildtool:latest
-          docker push ghcr.io/thesnowfield/el-buildtool:latest
+          docker tag el-buildtool ghcr.io/thesnowfield/el-buildtool/el-buildtool:latest
+          docker push ghcr.io/thesnowfield/el-buildtool/el-buildtool:latest
 
   release:
     runs-on: ubuntu-latest

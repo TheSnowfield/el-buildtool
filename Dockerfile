@@ -1,4 +1,5 @@
 FROM ubuntu:24.04
+LABEL org.opencontainers.image.source=https://github.com/thesnowfield/el-buildtool
 
 COPY rootfs /toolchain/
 COPY entrypoint.sh /entrypoint.sh
