@@ -31,6 +31,10 @@ RUN cd /toolchain && ls && \
     wineboot && \
     winetricks winxp && \
 
+    # import epl default settings
+    # enable fast array access, no dll check, no deadloop check
+    wine regedit config.reg && \
+
     # clean
     apt-get clean
 
